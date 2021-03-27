@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-books-table" author="vikasmishra">
+        <createTable tableName="books">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="author" type="varchar(50)"/>
+            <column name="publishyear" type="varchar(16)"/>
+            <column name="availablecount" type="int" defaultValue="0"/>
+            <column name="issuedcount" type="int" defaultValue="0"/>
+            <column name="addedtime" type="datetime"/>
+        </createTable>
+
+        <createIndex indexName="books_id_index" tableName="books">
+            <column name="id" type="serial"/>
+        </createIndex>
+
+        <rollback>
+            <dropIndex tableName="books" indexName="books_id_index"/>
+            <dropTable tableName="books"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
