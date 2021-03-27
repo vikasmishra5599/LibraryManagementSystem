@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss,SSS} %X{IP} [%t] %-5p [%.30c] - %m%n"
+                           charset="UTF-8"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="console"/>
+        </Root>
+
+        <logger name="librarymanagementsystem">
+            <level value="info"/>
+        </logger>
+    </Loggers>
+</Configuration>
