@@ -1,46 +1,50 @@
 package com.asssignment.LibraryManagementSystem.entity;
 
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Entity
+@Entity(name= "usersbooking")
 public class UsersBooking {
 
-    @EmbeddedId
-    private BookingId bookingId;
-    private boolean borrowedstatus;
-    private boolean returnedstatus;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(name ="userid")
+    private Long userId;
+    @Column(name ="bookid")
+    private Long bookId;
 
     public UsersBooking() {
     }
 
-    public UsersBooking(BookingId bookingId, boolean borrowedstatus, boolean returnedstatus) {
-        this.bookingId = bookingId;
-        this.borrowedstatus = borrowedstatus;
-        this.returnedstatus = returnedstatus;
+    public UsersBooking(Long userId, Long bookId) {
+        this.userId = userId;
+        this.bookId = bookId;
+     }
+
+    public long getId() {
+        return id;
     }
 
-    public BookingId getBookingId() {
-        return bookingId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setBookingId(BookingId bookingId) {
-        this.bookingId = bookingId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public boolean isBorrowedstatus() {
-        return borrowedstatus;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public void setBorrowedstatus(boolean borrowedStatus) {
-        this.borrowedstatus = borrowedStatus;
+    public Long getBookId() {
+        return bookId;
     }
 
-    public boolean isReturnedstatus() {
-        return returnedstatus;
-    }
-
-    public void setReturnedstatus(boolean returnedstatus) {
-        this.returnedstatus = returnedstatus;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 }

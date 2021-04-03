@@ -1,9 +1,8 @@
 package com.asssignment.LibraryManagementSystem.entity;
 
-import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
-@Embeddable
 public class BookingId implements Serializable {
 
     private Long userId;
@@ -31,5 +30,18 @@ public class BookingId implements Serializable {
 
     public void setBookId(Long bookId) {
         this.bookId = bookId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookingId bookingId = (BookingId) o;
+        return Objects.equals(userId, bookingId.userId) && Objects.equals(bookId, bookingId.bookId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, bookId);
     }
 }

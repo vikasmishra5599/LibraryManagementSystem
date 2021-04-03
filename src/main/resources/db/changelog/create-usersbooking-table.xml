@@ -8,14 +8,15 @@
 
     <changeSet id="create-usersbook-table" author="vikasmishra">
         <createTable tableName="usersbooking">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
             <column name="userid" type="serial">
                 <constraints nullable="false"/>
             </column>
             <column name="bookid" type="serial">
                 <constraints nullable="false"/>
             </column>
-            <column name="borrowedstatus" type="boolean" defaultValue="T"/>
-            <column name="returnedstatus" type="boolean" defaultValue="F"/>
         </createTable>
 
         <addForeignKeyConstraint baseTableName="usersbooking" baseColumnNames="userid" constraintName="fk_userid"
