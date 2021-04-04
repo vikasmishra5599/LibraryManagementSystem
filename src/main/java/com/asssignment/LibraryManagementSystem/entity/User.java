@@ -1,27 +1,32 @@
 package com.asssignment.LibraryManagementSystem.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.ZonedDateTime;
 
-@Entity
-public class Users {
-@Id
+@Entity(name = "users")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String emailid;
     private String firstname;
     private String lastname;
     private String contactno;
-    private ZonedDateTime createdTime;
+    private ZonedDateTime createdtime;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String emailid, String firstname, String lastname, String contactno) {
+    public User(String emailid, String firstname, String lastname, String contactno, ZonedDateTime zonedDateTime) {
         this.emailid = emailid;
         this.firstname = firstname;
         this.lastname = lastname;
         this.contactno = contactno;
+        this.createdtime = createdtime;
     }
 
     public Long getId() {
@@ -64,11 +69,11 @@ public class Users {
         this.contactno = contactno;
     }
 
-    public ZonedDateTime getCreatedTime() {
-        return createdTime;
+    public ZonedDateTime getCreatedtime() {
+        return createdtime;
     }
 
-    public void setCreatedTime(ZonedDateTime createdTime) {
-        this.createdTime = createdTime;
+    public void setCreatedtime(ZonedDateTime createdtime) {
+        this.createdtime = createdtime;
     }
 }

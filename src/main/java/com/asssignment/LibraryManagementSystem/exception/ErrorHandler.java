@@ -13,10 +13,26 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.LinkedHashMap;
 import java.util.Map;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ControllerAdvice
 public class ErrorHandler extends ResponseEntityExceptionHandler {
     private static final Logger LOG = LoggerFactory.getLogger(ErrorHandler.class);
+
+    @ExceptionHandler({FetchFailureException.class})
+    public ResponseEntity<Object> handleRuntimeException(FetchFailureException re, WebRequest wr) {
+        return handleError(re, wr, INTERNAL_SERVER_ERROR, "failed to fetch");
+    }
+
+    @ExceptionHandler({NotFoundException.class})
+    public ResponseEntity<Object> handleRuntimeException(NotFoundException re, WebRequest wr) {
+        return handleError(re, wr, NOT_FOUND, "not found error");
+    }
+
+    @ExceptionHandler({CreationFailureException.class})
+    public ResponseEntity<Object> handleRuntimeException(CreationFailureException re, WebRequest wr) {
+        return handleError(re, wr, INTERNAL_SERVER_ERROR, "failed to create");
+    }
 
     @ExceptionHandler({RuntimeException.class})
     public ResponseEntity<Object> handleRuntimeException(RuntimeException re, WebRequest wr) {
@@ -29,6 +45,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     }
 
     ResponseEntity<Object> handleError(Exception e, WebRequest webRequest, HttpStatus httpStatus, Object responseBody) {
+        LOG.warn("An error occurred while processing request", e);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -39,5 +56,4 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 
         return handleExceptionInternal(e, errorMap, headers, httpStatus, webRequest);
     }
-
 }
